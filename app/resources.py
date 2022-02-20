@@ -41,8 +41,8 @@ class Entry:
         if entry is None:
             raise HTTPException(
                 status_code=400, detail="Entry with title does not exist"
-            ) 
-        return entry           
+            )
+        return entry
 
 
 @cbv(router)

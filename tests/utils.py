@@ -5,9 +5,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.database.database import Base, get_db
 from app.app import App
-
+from app.database.database import Base, get_db
 
 # Test environment SQLite database
 DB_PATH = "./test.db"
@@ -29,28 +28,28 @@ def override_get_db():
 
 
 def spin_up():
-	"""
-	Create the test environment by:
-		1. Creating the test database and tables
-		2. Overriding the app dependency get_db with a version
-		using the local testing session
-		3. Create the test client
-	"""
-	tear_down()
+    """
+    Create the test environment by:
+            1. Creating the test database and tables
+            2. Overriding the app dependency get_db with a version
+            using the local testing session
+            3. Create the test client
+    """
+    tear_down()
 
-	app = App()
+    app = App()
 
-	Base.metadata.create_all(bind=engine)
-	app.dependency_overrides[get_db] = override_get_db
-	client = TestClient(app)
-	
-	return client
+    Base.metadata.create_all(bind=engine)
+    app.dependency_overrides[get_db] = override_get_db
+    client = TestClient(app)
+
+    return client
 
 
 def tear_down():
-	"""
-	Tear down the test environment, deleting the test database
-	SQLite file.
-	"""
-	if Path(DB_PATH).is_file():
-		os.remove(DB_PATH)
+    """
+    Tear down the test environment, deleting the test database
+    SQLite file.
+    """
+    if Path(DB_PATH).is_file():
+        os.remove(DB_PATH)

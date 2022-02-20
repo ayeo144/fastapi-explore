@@ -9,18 +9,14 @@ def test_Entry_post():
     client = spin_up()
 
     response = client.post(
-        "/entry", 
-        json={
-            "title": "test title", 
-            "description": "test description"
-        }
+        "/entry", json={"title": "test title", "description": "test description"}
     )
 
     response_data = response.json()
 
     assert response.status_code == 200
-    assert response_data['title'] == "test title"
-    assert response_data['description'] == "test description"
+    assert response_data["title"] == "test title"
+    assert response_data["description"] == "test description"
 
     tear_down()
 
@@ -32,10 +28,7 @@ def test_Entry_post_exists():
     """
     client = spin_up()
 
-    entry = {
-        "title": "test title", 
-        "description": "test description"
-    }
+    entry = {"title": "test title", "description": "test description"}
 
     response_1 = client.post("/entry", json=entry)
 
