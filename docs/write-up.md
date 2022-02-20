@@ -19,8 +19,8 @@ and enforce strict typing via the standard library `typing` module, and other Py
 
 Previously when working with `Flask` I had used the `flask_restful` package which applied a
 class-based approach to grouping API endpoints. To replicate this with `FastAPI` I used the
-`fastapi-utils` package and it's Class Based Views (`fastapi_utils.cbv`) feature to create
-'resources' which helped bundle together the HTTP requests for a specific endpoint.
+`fastapi-utils` package and it's Class Based Views ([`fastapi_utils.cbv`](https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/)) feature to create 'resources' which helped bundle together the HTTP 
+requests for a specific endpoint.
 
 This was, for me at least, a preferred way of structuring the code. Although a little more
 complex for this first simple example, it would allow for a more organised codebase when/if
