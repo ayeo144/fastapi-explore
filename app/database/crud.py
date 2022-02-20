@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from . import models, schemas
+from app.database import models, schemas
 
 
 def create_entry(db: Session, entry: schemas.EntryCreate):
@@ -13,7 +13,7 @@ def create_entry(db: Session, entry: schemas.EntryCreate):
     new_entry = models.Entry(**entry.dict())
     db.add(new_entry)
     db.commit()
-    # db.refresh()
+    return new_entry
 
 
 def get_entry_by_title(db: Session, title: str):

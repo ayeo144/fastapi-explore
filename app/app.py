@@ -1,12 +1,9 @@
-from typing import List
+from fastapi import FastAPI
 
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
+from app.database import models, database
+from app.resources import router
 
-from . import crud, models, schemas
-from .database import engine, get_db
-
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 app.include_router(router)

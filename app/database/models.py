@@ -1,7 +1,7 @@
 from sqlalchemy.sql import func
 from sqlalchemy import Column, Integer, String, DateTime
 
-from .database import Base
+from app.database.database import Base
 
 
 class Entry(Base):
@@ -12,5 +12,5 @@ class Entry(Base):
 
 	id = Column(Integer, primary_key=True)
 	time_created = Column(DateTime(timezone=True), server_default=func.now())
-	title = Column(String)
-	description = Column(String)
+	title = Column(String, nullable=False)
+	description = Column(String, nullable=True)
