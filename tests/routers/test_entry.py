@@ -1,4 +1,4 @@
-from .utils import spin_up, tear_down
+from ..utils import spin_up, tear_down
 
 
 def test_Entry_post():

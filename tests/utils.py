@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.app import App
-from app.database.database import Base, get_db
+from app.database.db_admin import Base, get_db
 
 # Test environment SQLite database
 DB_PATH = "./test.db"

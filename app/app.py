@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.database import database, models
-from app.resources import router
+from app.database import db_admin, models
+from app.routers import api_router
 
 
 class App(FastAPI):
@@ -17,10 +17,10 @@ class App(FastAPI):
         endpoints.
         """
         super().__init__()
-        self.include_router(router)
+        self.include_router(api_router)
 
     def create_db(self):
         """
         Create the SQLite database and tables.
         """
-        models.Base.metadata.create_all(bind=database.engine)
+        models.Base.metadata.create_all(bind=db_admin.engine)
