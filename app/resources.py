@@ -16,7 +16,7 @@ class Entry:
     Endpoints for working with single Entry.
     """
 
-    @router.post("/entry")
+    @router.post("/entry", response_model=schemas.Entry)
     def create_entry(
         self, entry: schemas.EntryCreate, db: Session = Depends(database.get_db)
     ):
@@ -24,18 +24,25 @@ class Entry:
         Create a new entry.
         """
         entry_check = crud.get_entry_by_title(db, entry.title)
-        if len(entry_check) > 0:
+        if entry_check is not None:
             raise HTTPException(
                 status_code=400, detail="Entry with title already exists"
             )
-        return crud.create_entry(db, entry)
+        else:
+            entry = crud.create_entry(db, entry)
+        return entry
 
-    @router.get("/entry/{title}")
+    @router.get("/entry/{title}", response_model=schemas.Entry)
     def get_entry(self, title: str, db: Session = Depends(database.get_db)):
         """
         Get entry with specific title.
         """
-        return crud.get_entry_by_title(db, title)
+        entry = crud.get_entry_by_title(db, title)
+        if entry is None:
+            raise HTTPException(
+                status_code=400, detail="Entry with title does not exist"
+            ) 
+        return entry           
 
 
 @cbv(router)
@@ -44,7 +51,7 @@ class Entries:
     Endpoints for working with multipl Entries.
     """
 
-    @router.get("/entries")
+    @router.get("/entries", response_model=List[schemas.Entry])
     def get_entries(self, db: Session = Depends(database.get_db)):
         """
         Get all entries in database.

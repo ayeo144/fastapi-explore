@@ -17,7 +17,7 @@ def create_entry(db: Session, entry: schemas.EntryCreate):
 
 
 def get_entry_by_title(db: Session, title: str):
-    return db.query(models.Entry).filter_by(title=title).all()
+    return db.query(models.Entry).filter_by(title=title).first()
 
 
 def get_entries(db: Session):
